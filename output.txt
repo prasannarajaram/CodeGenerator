@@ -1,0 +1,75 @@
+C :PIT82408 - :PIT82408.EQUIP :PIT82408.GLO
+C %% MODULE %%  :PIT82408.TAG 
+
+
+C %% CALL TEMPLATE IFD03B           (
+C                                ! GROUP 35C Special Calculations - Specific                                       
+C                                ! Instrument Fault Detection 20070823                                             
+C   ~QUES~ <^TYP> = 1                 ! What type of transmitter is there ?                         
+C                                1 -> ! 4-20 mA (MOD5 input)                                        
+C                                2 -> ! 0-10 Volt (MOD5 input)                                      
+C                                3 -> ! 0-20 Volt (MOD5 input)                                      
+C                                4 -> ! 4-20 mA (Remote input)                                      
+C                                5 -> ! Thermocouple, RTD, WTB, RFREQ and HART (MOD5 or remote input
+C   ~QUES~ <^GLOB> = 1                ! External global AP's for broken cable / short circuit detect
+C                                1 -> ! External AP's                                               
+C                                2 -> ! Internal AP's                                               
+C   ~QUES~ <^SPD> = 1                 ! Spike detection required ?                                  
+C                                1 -> ! No, spike detection will NOT be included                    
+C                                2 -> ! Yes, spike detection will be included                       
+C   ~QUES~ <^RAT> = 1                 ! Include 'rate of change' logic (with 1 second spike rejectio
+C                                1 -> ! No, do not include rate of change                           
+C                                2 -> ! Yes, (use Info command to see additional variables required)
+C   ~QUES~ <^VAR> = 1                 ! Include logic to detect high signal variation / stagnant sig
+C                                1 -> ! No, Do not use high signal variation / stagnant signal      
+C                                2 -> ! Yes  (use Info command to see additional variables required)
+C   ~QUES~ <^F> = 1                   ! Is input signal filtered?                                   
+C                                1 -> ! No, the input signal is NOT filtered                        
+C                                2 -> ! Yes, the input signal is filtered                           
+C   ~QUES~ <^LAT> = 1                 ! What type of latch logic is desired                         
+C                                1 -> ! AIM only                                                    
+C                                2 -> ! AIM or DM                                                   
+C                                3 -> ! AIM or DC                                                   
+C   ~QUES~ <^DT> = 1                  ! Is a Delay timer for the Failure DC needed                  
+C                                1 -> ! No                                                          
+C                                2 -> ! Yes, for the Failure Latch                                  
+C                                3 -> ! Yes, for the Failure calculation                            
+C   ~QUES~ <^SDC> = 1                 ! Is instrument used in a controller                          
+C                                1 -> ! Yes, calculate Out-of-Service for controller                
+C                                2 -> ! No, save DC's and do not calculate Out-of-Service           
+C   ~QUES~ <^DIS> = 1                 ! Is Disable logic needed                                     
+C                                1 -> ! No                                                          
+C                                2 -> ! Yes                                                         
+C   ~QUES~ <^EFD> = 1                 ! Is External Failure Detection available                     
+C                                1 -> ! No                                                          
+C                                2 -> ! Yes                                                         
+C   ~QUES~ <^EFA> = 1                 ! Is the External Failure True or False when failed           
+C                                1 -> ! True                                                        
+C                                2 -> ! False                                                       
+C   ~QUES~ <^ABF> = 1                 ! Should the instrument fault detection be moved ?            
+C                                1 -> ! No move, instrument fault detection stays in same file (Norm
+C                                2 -> ! Instrument fault detection will be moved to DOW abort file (
+C                                3 -> ! Instrument fault detection will be moved to a CERTifiable ab
+C   ~QUES~ <^SIP> = 1                 ! Move DC(OOS) to a common SIP Instrument Problem Alarm       
+C                                1 -> ! No                                                          
+C                                2 -> ! Yes                                                         
+C   ~QUES~ <^EN> = 2                  ! Is enable logic needed                                      
+C                                1 -> ! No                                                          
+C                                2 -> ! Yes                                                         
+C   ~SUBS~ <^AXTAG1>         =:PIT82408   !  ACM Tagname for this IFD calculation                                  
+C   ~SUBS~ <^BCLLTAG>        =<<BK_CB_LL>>   !  Tagname LOWER limit instrument diagnostics (broken cable)             
+C   ~SUBS~ <^BCULTAG>        =<<BK_CB_UL>>   !  Tagname UPPER Limit instrument diagnostics (short circuit)            
+C   ~SUBS~ <?VLD>            =&SEQ_IFD_EN !  Global DC # for enabling Instrument Fault Detection                   
+C   ~SUBS~ <DK1>             =DK1             !  DK# for enabling signal variation / stagnation logic                  
+C   ~SUBS~ <?DIS>            =?DIS            !  Global DC for Disable Logic                                           
+C   ~SUBS~ <?DM_UNL>         =&A_SYS_UNL_DM   !  DM for Failure Unlatch                                                
+C   ~SUBS~ <?DC_UNL>         =?DC_UNL         !  Global DC for Failure Unlatch                                         
+C   ~SUBS~ <^DITAG>          =^DITAG          !  ACM Tagname for Extrenal Failure Detection DI                         
+C   ~SUBS~ <Default_sheet_name> =J_SK662_SEQ_OVR    !  Operator station default sheet name                                   
+C   ~SUBS~ <SAFETY_DOW>      =SAFETY_DOW      !  Dow abort file anchor, if not using standard anchor                   
+C   ~SUBS~ <SAFETY_CERT>     =SAFETY_CERT     !  SIP abort file anchor, if not using standard anchor                   
+C   ~SUBS~ <:ALM_INST_FAIL>  =<<ALM_INST_FAIL>> !  Tagname rering alarm instrument failure                               
+C   ~SUBS~ <:ALM_SIP_PROB>   =ALM_SIP_PROB   !  Tagname rering alarm SIP instrument problem                           
+C                 ) %% 
+C 
+C %% End Module %%  :PIT82408.TAG 
